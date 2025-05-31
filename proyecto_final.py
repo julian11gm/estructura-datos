@@ -135,7 +135,7 @@ class WeightPredictionModel:
         return prediction
 
     def get_coefficients(self):
-        """Obtiene los coeficientes del modelo para interpretación."""
+        #Obtiene los coeficientes del modelo para interpretación
         if not self.trained:
             return None
 
@@ -148,7 +148,7 @@ class WeightPredictionModel:
         }
 
     def save_model(self):
-        """Guarda el modelo entrenado en disco."""
+        #Guarda el modelo entrenado en disco
         if self.trained:
             with open(self.model_file, 'wb') as f:
                 pickle.dump({
@@ -159,7 +159,7 @@ class WeightPredictionModel:
                 }, f)
 
     def load_model(self):
-        """Carga un modelo previamente entrenado desde disco."""
+        #Carga un modelo previamente entrenado desde disco
         if os.path.exists(self.model_file):
             try:
                 with open(self.model_file, 'rb') as f:
@@ -184,7 +184,7 @@ class WeightLossApp:
         self.model.load_model()
 
     def save_data(self):
-        """Guarda el historial en un archivo JSON."""
+        #Guarda el historial en un archivo JSON
         data = []
         current = self.history.head
         while current:
@@ -200,7 +200,7 @@ class WeightLossApp:
             json.dump(data, f, indent=2)
 
     def load_data(self):
-        """Carga el historial desde un archivo JSON."""
+        #Carga el historial desde un archivo JSON
         if os.path.exists(self.data_file):
             try:
                 with open(self.data_file, 'r') as f:
@@ -217,7 +217,7 @@ class WeightLossApp:
                 print("Error al cargar los datos previos.")
 
     def add_daily_record(self):
-        """Solicita al usuario agregar un nuevo registro diario."""
+        #Solicita al usuario agregar un nuevo registro diario
         print("\n--- Registro Diario ---")
         try:
             date = input("Fecha (AÑO-MES-DIA) o presiona Enter para registrar el día de hoy: ").strip()
@@ -238,7 +238,7 @@ class WeightLossApp:
         return habit
 
     def train_prediction_model(self):
-        """Entrena el modelo de predicción de peso."""
+        #Entrena el modelo de predicción de peso
         print("\n--- Entrenando el Modelo de Predicción ---")
         x_data, y_data = self.history.get_ml_data()
         if x_data is None:
@@ -251,7 +251,7 @@ class WeightLossApp:
         return False
 
     def make_prediction(self):
-        """Realiza una predicción de peso según los datos ingresados por el usuario."""
+        #Realiza una predicción de peso según los datos ingresados por el usuario
         if not self.model.trained:
             print("El modelo no está entrenado. Por favor, entrena el modelo primero.")
             return
@@ -275,7 +275,7 @@ class WeightLossApp:
             print("Error: Por favor ingresa valores numéricos válidos.")
 
     def show_recommendations(self, calories, exercise):
-        """Muestra recomendaciones personalizadas según los coeficientes del modelo y los datos ingresados."""
+        #Muestra recomendaciones personalizadas según los coeficientes del modelo y los datos ingresados
         coefficients = self.model.get_coefficients()
         if not coefficients:
             return
@@ -297,7 +297,7 @@ class WeightLossApp:
         print("• Sé constante con tus hábitos saludables")
 
     def show_progress_analysis(self):
-        """Muestra un análisis del progreso de pérdida de peso del usuario."""
+        #Muestra un análisis del progreso de pérdida de peso del usuario
         if self.history.size < 2:
             print("Se requieren al menos 2 registros para mostrar el progreso.")
             return
@@ -335,7 +335,7 @@ class WeightLossApp:
             print("Tu peso se mantiene estable.")
 
     def main_menu(self):
-        """Muestra el menú principal y gestiona la interacción con el usuario."""
+        #Muestra el menú principal y gestiona la interacción con el usuario
         while True:
             print("\n" + "="*50)
             print("Bajar de peso")
@@ -384,7 +384,7 @@ class WeightLossApp:
                 print(f"Error inesperado: {e}")
 
 def main():
-    """Funciones Principales."""
+    #Funciones Principales
     print("Bienvenido/a")
     print("• Registrar tu progreso diario")
     print("• Recibir hábitos saludables")
